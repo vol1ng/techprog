@@ -14,3 +14,21 @@ button {
 #result {
     margin-top: 20px;
 }
+#suggestionBox {
+    border: 1px solid #ccc;
+    background-color: white;
+    position: absolute;
+    width: calc(100% - 20px);
+    max-width: 300px;
+    display: none;
+    z-index: 1;
+}
+
+.suggestion {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion:hover {
+    background-color: #f0f0f0;
+}
