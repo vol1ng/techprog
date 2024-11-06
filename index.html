@@ -1,18 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Словарь</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <h1>Словарь</h1>
-    <input type="text" id="wordInput" placeholder="Введите слово">
+    <input type="text" id="wordInput" placeholder="Введите слово" />
     <div id="suggestionBox"></div>
     <button id="searchButton">Поиск</button>
+    <button id="markButton" style="display: none">Пометить слово</button>
+    <button id="showMarkedButton">Помеченные слова</button>
     <div id="result"></div>
-
+    <div id="markedWordsPopup" class="popup" style="display: none">
+      <h2>Помеченные слова</h2>
+      <div id="markedWordsList"></div>
+      <button id="closePopupButton">Закрыть</button>
+    </div>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
