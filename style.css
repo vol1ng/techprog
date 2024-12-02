@@ -1,5 +1,6 @@
 body {
   font-family: Arial, sans-serif;
+  text-align: center;
 }
 
 input {
@@ -14,15 +15,35 @@ button {
 #result {
   margin-top: 20px;
 }
-
+.parent {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
 #suggestionBox {
-  border: 1px solid #ccc;
-  background-color: white;
+  margin-top: 130px;
+
+  /* background-color: white; */
   position: absolute;
-  width: calc(100% - 20px);
+  width: calc(100% - 70px);
   max-width: 300px;
   display: none;
   z-index: 1;
+}
+.active_buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+img:hover{
+
+  opacity: 0.5;
+}
+img{
+
+  width: 30px;
+  height: 30px;
+
 }
 
 .suggestion {
@@ -30,27 +51,15 @@ button {
   cursor: pointer;
 }
 
-.suggestion:hover {
-  background-color: #f0f0f0;
+
+.modeLabel{
+  font-weight: bold;
+  /* color: black; */
+}
+#searchButton{
+  margin-right: 5px;
+}
+#swithTheme{
+  margin-left: 5px;
 }
 
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  border: 1px solid #ccc;
-  background-color: white;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-}
-
-#markedWordsList div {
-  padding: 5px;
-}
-
-#markedWordsList div:hover {
-  background-color: #f0f0f0;
-  cursor: pointer;
-}
