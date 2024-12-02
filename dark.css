@@ -1,0 +1,10 @@
+body{
+    color:white;
+    background-color:grey;
+}
+#suggestionBox{
+    border: 1px solid #ccc;
+}
+.suggestion:hover {
+    background-color: black;
+  }
