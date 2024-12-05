@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     loader.style.display = "none";
     content.style.display = "block";
-  }, 3000);
+  }, 2000);
 
   function loadQuestion() {
     if (currentQuestion >= questions.length) {
