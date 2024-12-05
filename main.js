@@ -46,7 +46,7 @@ loader.style.display = "block";
 setTimeout(() => {
   loader.style.display = "none";
   content.style.display = "block";
-}, 2000);
+}, 7000);
 
 document.getElementById("wordInput").addEventListener("input", function () {
   const query = this.value.trim().toLowerCase();
