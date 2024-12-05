@@ -3,7 +3,7 @@ let currentFile = "Wordsru.json";
 const switchMode = () => {
   currentFile = currentFile === "Wordsru.json" ? "words.json" : "Wordsru.json";
   const switchButton = document.getElementById("switchModeButton");
-  switchButton.textContent = currentFile === "wordsru.json" ? "Rus" : "Eng";
+  switchButton.textContent = currentFile === "Wordsru.json" ? "Rus" : "Eng";
 
   document.getElementById("result").innerHTML = "";
   document.getElementById("suggestionBox").innerHTML = "";
@@ -145,12 +145,12 @@ document.getElementById("markButton").addEventListener("click", () => {
     if (!markedWords.includes(wordInput)) {
       markedWords.push(wordInput);
       localStorage.setItem("markedWords", JSON.stringify(markedWords));
-      alert("Слово помечено!");
+      alert("The word was marked");
     } else {
-      alert("Это слово уже помечено!");
+      alert("The word is already marked");
     }
   } else {
-    alert("Введите слово, чтобы пометить.");
+    alert("Enter the word to mark");
   }
 });
 document.addEventListener("keyup", (event) => {
