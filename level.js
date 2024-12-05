@@ -89,6 +89,22 @@ document.addEventListener("DOMContentLoaded", () => {
       loadQuestion();
     }
   });
+    document.addEventListener("touchend", (event) => {
+    const userAnswer = answerInput.value.trim().toLowerCase();
+    const correctAnswer = questions[currentQuestion].answer;
+
+    if (userAnswer === correctAnswer) {
+      correctAnswers++;
+    }
+
+    currentQuestion++;
+    localStorage.setItem(
+      level,
+      JSON.stringify({ correctAnswers, currentQuestion })
+    );
+    updateProgress();
+    loadQuestion();
+  });
 
   updateProgress();
 });
