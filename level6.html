@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Level 6: Advanced</title>
-    <link rel="stylesheet" href="levels.css" />
-    <link id="theme" rel="stylesheet" href="light.css" />
+    <link rel="stylesheet" href="css/levels.css" />
+    <link id="theme" rel="stylesheet" href="css/light.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,24 +15,35 @@
   </head>
   <body>
     <div class="level-container">
-      <div class="active">
-        <span id="back"><img class="menu" src="images/back.jpg" alt="" /></span>
-        <span id="switchTheme"
-          ><img class="menu" src="images/2.png" alt=""
-        /></span>
+      <div id="loader" style="display: none">Loading...</div>
+      <div id="content" style="display: none">
+        <div class="active">
+          <span id="back"
+            ><img class="menu" src="images/back.jpg" alt=""
+          /></span>
+          <span id="switchTheme"
+            ><img class="menu" src="images/2.png" alt=""
+          /></span>
+        </div>
+        <h1>Level 6: Advanced</h1>
+        <p id="progress">Progress: 0/5</p>
+        <div class="question-container">
+          <img
+            id="question-image"
+            src=""
+            alt="Question"
+            class="question-image"
+          />
+          <p id="question-text">What is this?</p>
+          <input type="text" id="answer-input" placeholder="Type your answer" />
+          <button id="submit-button">Submit</button>
+        </div>
+        <button id="finish-button" class="disabled" disabled>
+          Level Completed
+        </button>
       </div>
-      <h1>Level 6: Advanced</h1>
-      <p id="progress">Progress: 0/5</p>
-      <div class="question-container">
-        <img id="question-image" src="" alt="Question" class="question-image" />
-        <p id="question-text">What is this?</p>
-        <input type="text" id="answer-input" placeholder="Type your answer" />
-        <button id="submit-button">Submit</button>
-      </div>
-      <button id="finish-button" class="disabled" disabled>
-        Level Completed
-      </button>
     </div>
     <script src="level.js"></script>
+    <script src="switchTheme.js"></script>
   </body>
 </html>

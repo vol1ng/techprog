@@ -1,0 +1,164 @@
+body {
+  font-family: "IBM Plex Mono", monospace;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+button {
+  padding: 10px;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
+  border-radius: 50px;
+}
+button:hover {
+  transform: scale(1.1);
+  background-color: pink;
+}
+
+#result {
+  margin-top: 20px;
+}
+.parent {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+#suggestionBox {
+  border-radius: 50px;
+  margin-top: 180px;
+
+  /* background-color: white; */
+  position: absolute;
+  width: calc(100% - 70px);
+  max-width: 300px;
+  display: none;
+  z-index: 1;
+}
+.suggestion:hover {
+  opacity: 0.5;
+}
+.active_buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+img:hover {
+  opacity: 0.5;
+  transform: scale(1.1);
+}
+img {
+  width: 30px;
+  height: 30px;
+}
+
+.suggestion {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.modeLabel {
+  font-weight: bold;
+  /* color: black; */
+}
+.active_btn {
+  margin: 2px;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 50px;
+  width: 300px;
+  text-align: center;
+}
+
+#markedWordsList {
+  list-style: none;
+  padding: 0;
+}
+
+#markedWordsList li {
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+#markedWordsList li button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+
+#closePopupButton {
+  margin-top: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
+  margin: 0 auto;
+  /* align-items: center; */
+}
+.active-header {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+input {
+  color: #333;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 50px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  padding: 20px 45px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  transition: box-shadow 0.3s ease;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+.container {
+  text-align: center;
+  background: #fff;
+  padding: 20px 40px;
+  border-radius: 35px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  height: 350px;
+}

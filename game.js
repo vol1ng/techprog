@@ -7,24 +7,18 @@ levelButtons.forEach((button) => {
   });
 });
 
+const loader = document.getElementById("loader");
+const content = document.getElementById("content");
+
+loader.style.display = "block";
+
+setTimeout(() => {
+  loader.style.display = "none";
+  content.style.display = "block";
+}, 3000);
+
+switchTheme.addEventListener("click", toggleTheme);
 const back = document.getElementById("back");
 back.addEventListener("click", () => {
   location.href = "index.html";
 });
-const switchTheme = document.getElementById("switchTheme");
-const themeStylesheet = document.getElementById("theme");
-let isLightTheme = true;
-
-function toggleTheme() {
-  if (isLightTheme) {
-    themeStylesheet.setAttribute("href", "dark.css");
-    switchTheme.querySelector("img").src = "images/1.png";
-    isLightTheme = false;
-  } else {
-    themeStylesheet.setAttribute("href", "light.css");
-    switchTheme.querySelector("img").src = "images/2.png";
-    isLightTheme = true;
-  }
-}
-
-switchTheme.addEventListener("click", toggleTheme);

@@ -6,6 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const submitButton = document.getElementById("submit-button");
   const finishButton = document.getElementById("finish-button");
 
+  const back = document.getElementById("back");
+  back.addEventListener("click", () => {
+    location.href = "game.html";
+  });
+
   let questions = [];
   let currentQuestion = 0;
   let correctAnswers = 0;
@@ -21,6 +26,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateProgress() {
     progressText.textContent = `Progress: ${correctAnswers}/${questions.length}`;
   }
+  const loader = document.getElementById("loader");
+  const content = document.getElementById("content");
+
+  loader.style.display = "block";
+
+  setTimeout(() => {
+    loader.style.display = "none";
+    content.style.display = "block";
+  }, 3000);
 
   function loadQuestion() {
     if (currentQuestion >= questions.length) {
@@ -53,27 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateProgress();
     loadQuestion();
   });
-  const switchTheme = document.getElementById("switchTheme");
-  const themeStylesheet = document.getElementById("theme");
-  let isLightTheme = true;
-
-  function toggleTheme() {
-    if (isLightTheme) {
-      themeStylesheet.setAttribute("href", "dark.css");
-      switchTheme.querySelector("img").src = "images/1.png";
-      isLightTheme = false;
-    } else {
-      themeStylesheet.setAttribute("href", "light.css");
-      switchTheme.querySelector("img").src = "images/2.png";
-      isLightTheme = true;
-    }
-  }
-  const back = document.getElementById("back");
-  back.addEventListener("click", () => {
-    location.href = "game.html";
-  });
-
-  switchTheme.addEventListener("click", toggleTheme);
 
   finishButton.addEventListener("click", () => {
     location.href = "game.html";

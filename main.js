@@ -38,6 +38,15 @@ const searchWord = () => {
         "Произошла ошибка при загрузке данных.";
     });
 };
+const loader = document.getElementById("loader");
+const content = document.getElementById("content");
+
+loader.style.display = "block";
+
+setTimeout(() => {
+  loader.style.display = "none";
+  content.style.display = "block";
+}, 3000);
 
 document.getElementById("wordInput").addEventListener("input", function () {
   const query = this.value.trim().toLowerCase();
@@ -84,25 +93,6 @@ document.getElementById("wordInput").addEventListener("input", function () {
 document
   .getElementById("switchModeButton")
   .addEventListener("click", switchMode);
-
-const switchTheme = document.getElementById("switchTheme");
-const themeStylesheet = document.getElementById("theme");
-
-let isLightTheme = true;
-
-function toggleTheme() {
-  if (isLightTheme) {
-    themeStylesheet.setAttribute("href", "dark.css");
-    switchTheme.querySelector("img").src = "images/1.png";
-    isLightTheme = false;
-  } else {
-    themeStylesheet.setAttribute("href", "light.css");
-    switchTheme.querySelector("img").src = "images/2.png";
-    isLightTheme = true;
-  }
-}
-
-switchTheme.addEventListener("click", toggleTheme);
 
 const gameButton = document.getElementById("gameButton");
 gameButton.addEventListener("click", () => {
