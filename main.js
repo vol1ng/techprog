@@ -1,7 +1,7 @@
-let currentFile = "wordsru.json";
+let currentFile = "Wordsru.json";
 
 const switchMode = () => {
-  currentFile = currentFile === "wordsru.json" ? "words.json" : "wordsru.json";
+  currentFile = currentFile === "Wordsru.json" ? "words.json" : "Wordsru.json";
   const switchButton = document.getElementById("switchModeButton");
   switchButton.textContent = currentFile === "wordsru.json" ? "Rus" : "Eng";
 
