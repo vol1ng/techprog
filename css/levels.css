@@ -80,3 +80,12 @@ img {
 #switchTheme {
   cursor: pointer;
 }
+.active span:hover {
+  opacity: 0.5;
+  transform: scale(1.1);
+}
+button:hover {
+  opacity: 0.5;
+  transform: scale(1.1);
+}
+
