@@ -15,7 +15,7 @@ loader.style.display = "block";
 setTimeout(() => {
   loader.style.display = "none";
   content.style.display = "block";
-}, 3000);
+}, 2000);
 
 switchTheme.addEventListener("click", toggleTheme);
 const back = document.getElementById("back");
