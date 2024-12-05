@@ -1,0 +1,12 @@
+[
+  { "image": "chair.jpg", "answer": "chair" },
+  { "image": "table.jpg", "answer": "table" },
+  { "image": "pencil.jpg", "answer": "pencil" },
+  { "image": "flower.jpg", "answer": "flower" },
+  { "image": "shirt.jpg", "answer": "shirt" },
+  { "image": "star.jpg", "answer": "star" },
+  { "image": "window.jpg", "answer": "window" },
+  { "image": "train.jpg", "answer": "train" },
+  { "image": "clock.jpg", "answer": "clock" },
+  { "image": "water.jpg", "answer": "water" }
+]

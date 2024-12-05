@@ -1,0 +1,13 @@
+[
+  { "image": "christmas_tree.jpg", "answer": "Christmas tree " },
+  { "image": "snowman.jpg", "answer": "snowman" },
+  { "image": "santa_claus.jpeg", "answer": "Santa Claus" },
+  { "image": "reindeer.jpg", "answer": "reindeer" },
+  { "image": "gift_box.jpg", "answer": "gift box" },
+  { "image": "stocking.jpg", "answer": "stocking" },
+  { "image": "fireplace.jpg", "answer": "fireplace" },
+  { "image": "wreath.jpg", "answer": "wreath" },
+  { "image": "candy_cane.jpg", "answer": "candy cane " },
+  { "image": "sled.jpg", "answer": "sled" },
+  { "image": "bell.png", "answer": "bell" }
+]

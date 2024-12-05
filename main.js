@@ -3,17 +3,16 @@ let currentFile = "wordsru.json";
 const switchMode = () => {
   currentFile = currentFile === "wordsru.json" ? "words.json" : "wordsru.json";
   const switchButton = document.getElementById("switchModeButton");
-  switchButton.textContent = currentFile === "wordsru.json" ? "Ru" : "Eng";
+  switchButton.textContent = currentFile === "wordsru.json" ? "Rus" : "Eng";
 
   document.getElementById("result").innerHTML = "";
   document.getElementById("suggestionBox").innerHTML = "";
   document.getElementById("suggestionBox").style.display = "none";
 };
 
-
 const searchWord = () => {
   const word = document.getElementById("wordInput").value.trim();
-  fetch(currentFile) // Используем текущий файл
+  fetch(currentFile)
     .then((response) => response.json())
     .then((data) => {
       const resultDiv = document.getElementById("result");
@@ -28,10 +27,9 @@ const searchWord = () => {
           : "Транскрипция отсутствует.";
 
         resultDiv.innerHTML = `
-                    <p>${translation}</p>
-                    <p>${transcription}</p>
-                `;
-
+          <p>${translation}</p>
+          <p>${transcription}</p>
+        `;
       }
     })
     .catch((error) => {
@@ -82,28 +80,91 @@ document.getElementById("wordInput").addEventListener("input", function () {
       console.error("Ошибка при загрузке данных:", error);
     });
 });
-document.getElementById("switchModeButton").addEventListener("click", switchMode);
 
+document
+  .getElementById("switchModeButton")
+  .addEventListener("click", switchMode);
 
-const switchTheme = document.getElementById('switchTheme');
-const themeStylesheet = document.getElementById('theme');
+const switchTheme = document.getElementById("switchTheme");
+const themeStylesheet = document.getElementById("theme");
+
 let isLightTheme = true;
 
 function toggleTheme() {
-    if (isLightTheme) {
-
-        themeStylesheet.setAttribute('href', 'dark.css');
-
-        switchTheme.querySelector('img').src = 'images/night-mode.png'; 
-        isLightTheme = false;
-    } else {
-
-        themeStylesheet.setAttribute('href', 'light.css');
-
-        switchTheme.querySelector('img').src = 'images/brightness.png'; 
-        isLightTheme = true;
-    }
+  if (isLightTheme) {
+    themeStylesheet.setAttribute("href", "dark.css");
+    switchTheme.querySelector("img").src = "images/1.png";
+    isLightTheme = false;
+  } else {
+    themeStylesheet.setAttribute("href", "light.css");
+    switchTheme.querySelector("img").src = "images/2.png";
+    isLightTheme = true;
+  }
 }
 
+switchTheme.addEventListener("click", toggleTheme);
 
-switchTheme.addEventListener('click', toggleTheme);
+const gameButton = document.getElementById("gameButton");
+gameButton.addEventListener("click", () => {
+  location.href = "game.html";
+});
+
+let markedWords = JSON.parse(localStorage.getItem("markedWords")) || [];
+
+function updateMarkedWords() {
+  const markedWordsList = document.getElementById("markedWordsList");
+  markedWordsList.innerHTML = "";
+
+  markedWords.forEach((word, index) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = word;
+
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Delete";
+    removeButton.addEventListener("click", () => {
+      removeMarkedWord(index);
+    });
+
+    listItem.appendChild(removeButton);
+    markedWordsList.appendChild(listItem);
+  });
+}
+
+function removeMarkedWord(index) {
+  markedWords.splice(index, 1);
+  localStorage.setItem("markedWords", JSON.stringify(markedWords));
+  updateMarkedWords();
+}
+
+document
+  .getElementById("viewMarkedWordsButton")
+  .addEventListener("click", () => {
+    const popup = document.getElementById("markedWordsPopup");
+    popup.style.display = "flex";
+    updateMarkedWords();
+  });
+
+document.getElementById("closePopupButton").addEventListener("click", () => {
+  const popup = document.getElementById("markedWordsPopup");
+  popup.style.display = "none";
+});
+
+document.getElementById("markButton").addEventListener("click", () => {
+  const wordInput = document.getElementById("wordInput").value.trim();
+  if (wordInput) {
+    if (!markedWords.includes(wordInput)) {
+      markedWords.push(wordInput);
+      localStorage.setItem("markedWords", JSON.stringify(markedWords));
+      alert("Слово помечено!");
+    } else {
+      alert("Это слово уже помечено!");
+    }
+  } else {
+    alert("Введите слово, чтобы пометить.");
+  }
+});
+document.addEventListener("keyup", (event) => {
+  if (event.code === "Enter") searchWord();
+});
+
+updateMarkedWords();

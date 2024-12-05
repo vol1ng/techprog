@@ -1,0 +1,12 @@
+[
+  { "image": "bicycle.jpg", "answer": "bicycle" },
+  { "image": "airplane.jpg", "answer": "airplane" },
+  { "image": "backpack.jpg", "answer": "backpack" },
+  { "image": "elephant.jpg", "answer": "elephant" },
+  { "image": "necklace .jpg", "answer": "necklace" },
+  { "image": "snowflake.jpg", "answer": "snowflake" },
+  { "image": "whisper.jpg", "answer": "whisper" },
+  { "image": "sailboat.jpg", "answer": "sailboat" },
+  { "image": "umbrella.jpg", "answer": "umbrella" },
+  { "image": "keyboard.jpg", "answer": "keyboard" }
+]

@@ -1,10 +1,17 @@
-body{
-    color:white;
-    background-color:grey;
+body {
+  background-color: rgb(73, 72, 72);
 }
-#suggestionBox{
-    border: 1px solid #ccc;
+#suggestionBox {
+  border: 1px solid #ccc;
 }
-.suggestion:hover {
-    background-color: black;
-  }
+.suggestion {
+  color: white;
+}
+
+.popup-content {
+  color: black;
+}
+.active_btn {
+  color: white;
+  background-color: #857d7d;
+}

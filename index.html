@@ -5,22 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Словарь</title>
     <link rel="stylesheet" href="style.css" />
-    <link id="theme" rel="stylesheet" href="light.css">
+    <link id="theme" rel="stylesheet" href="light.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-<div class="container">
-    <h1>Словарь</h1>
-    <input type="text" id="wordInput" placeholder="Введите слово" />
-    <div class="parent">
-      <div id="suggestionBox"></div>
+    <div class="container">
+      <header class="header">
+        <button id="gameButton" class="active_btn">Play the game</button>
+        <div class="active-header">
+          <button id="switchModeButton" class="active_btn">Rus</button>
+          <span id="switchTheme"><img src="images/2.png" alt="" /></span>
+        </div>
+      </header>
+      <h1>Dictionary</h1>
+      <input type="text" id="wordInput" placeholder="Enter the word" />
+
+      <div class="parent">
+        <div id="suggestionBox"></div>
+      </div>
+      <div class="active_buttons">
+        <button id="markButton" class="active_btn">Mark the word</button>
+        <button id="viewMarkedWordsButton" class="active_btn">
+          Marked words
+        </button>
+      </div>
+
+      <div id="markedWordsPopup" class="popup">
+        <div class="popup-content">
+          <h2>Marked words:</h2>
+          <ul id="markedWordsList"></ul>
+
+          <button id="closePopupButton">Close</button>
+        </div>
+      </div>
+
+      <div id="result"></div>
     </div>
-<div class="active_buttons">
-    <button id="searchButton">Поиск</button>
-    <button id="switchModeButton">Ru</button>
-    <span id ="switchTheme"><img src="images/brightness.png" alt=""></span>
-  </div>
-    <div id="result"></div>
-  </div>
+
     <script src="main.js"></script>
   </body>
 </html>
