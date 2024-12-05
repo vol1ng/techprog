@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     location.href = "game.html";
   });
   document.addEventListener("keyup", (event) => {
-    if (event.code === "Enter" || event.key ==="Enter") {
+    if (event.code === "Enter") {
       const userAnswer = answerInput.value.trim().toLowerCase();
       const correctAnswer = questions[currentQuestion].answer;
 
