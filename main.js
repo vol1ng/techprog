@@ -1,7 +1,7 @@
 let currentFile = "words.json";
 
 const switchMode = () => {
-  currentFile = currentFile === "words.json" ? "Wordsru.json" : "words.json";
+  currentFile = currentFile === "words.json" ? "wordsru.json" : "words.json";
   const switchButton = document.getElementById("switchModeButton");
   switchButton.textContent = currentFile === "words.json" ? "Eng" : "Rus";
 
@@ -43,10 +43,16 @@ const content = document.getElementById("content");
 
 loader.style.display = "block";
 
+const anchor = () => {
+  fetch(currentFile);
+  return;
+};
+anchor();
+
 setTimeout(() => {
   loader.style.display = "none";
   content.style.display = "block";
-}, 1000);
+}, 3000);
 
 document.getElementById("wordInput").addEventListener("input", function () {
   const query = this.value.trim().toLowerCase();
@@ -145,12 +151,12 @@ document.getElementById("markButton").addEventListener("click", () => {
     if (!markedWords.includes(wordInput)) {
       markedWords.push(wordInput);
       localStorage.setItem("markedWords", JSON.stringify(markedWords));
-      alert("The word was marked");
+      alert("Слово помечено!");
     } else {
-      alert("The word is already marked");
+      alert("Это слово уже помечено!");
     }
   } else {
-    alert("Enter the word to mark");
+    alert("Введите слово, чтобы пометить.");
   }
 });
 document.addEventListener("keyup", (event) => {
