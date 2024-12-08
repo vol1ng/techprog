@@ -1,9 +1,9 @@
-let currentFile = "Wordsru.json";
+let currentFile = "words.json";
 
 const switchMode = () => {
-  currentFile = currentFile === "Wordsru.json" ? "words.json" : "Wordsru.json";
+  currentFile = currentFile === "words.json" ? "Wordsru.json" : "words.json";
   const switchButton = document.getElementById("switchModeButton");
-  switchButton.textContent = currentFile === "Wordsru.json" ? "Rus" : "Eng";
+  switchButton.textContent = currentFile === "words.json" ? "Eng" : "Rus";
 
   document.getElementById("result").innerHTML = "";
   document.getElementById("suggestionBox").innerHTML = "";
