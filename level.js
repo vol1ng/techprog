@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const question = questions[currentQuestion];
-    questionImage.src = `images/${question.image}`;
+    questionImage.src = `imagesResized/${question.image}`;
     questionText.textContent = `What is this?`;
     answerInput.value = "";
   }
