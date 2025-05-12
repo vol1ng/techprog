@@ -5,61 +5,64 @@ document.addEventListener("DOMContentLoaded", () => {
   const answerInput = document.getElementById("answer-input");
   const submitButton = document.getElementById("submit-button");
   const finishButton = document.getElementById("finish-button");
-
   const back = document.getElementById("back");
-  back.addEventListener("click", () => {
-    location.href = "game.html";
-  });
-  const level = location.pathname.replace(".html", "");
-  function anchor() {
-    fetch(`${level}.json`);
-    return;
-  }
-  anchor();
+
+  const level = window.location.pathname.split("/").pop().replace(".html", "");
 
   let questions = [];
   let currentQuestion = 0;
   let correctAnswers = 0;
-
-  fetch(`${level}.json`)
-    .then((response) => response.json())
-    .then((data) => {
-      questions = data;
-      loadQuestion();
-    });
-
-  function updateProgress() {
-    progressText.textContent = `Progress: ${correctAnswers}/${questions.length}`;
-  }
+  const totalQuestions = 10; // Должно соответствовать количеству вопросов в JSON
 
   const loader = document.getElementById("loader");
   const content = document.getElementById("content");
 
   loader.style.display = "block";
 
-  setTimeout(() => {
-    loader.style.display = "none";
-    content.style.display = "block";
-  }, 3000);
+  fetch(`${level}.json`)
+    .then((response) => response.json())
+    .then((data) => {
+      questions = data;
+      const savedData = localStorage.getItem(level);
+      if (savedData) {
+        const parsedData = JSON.parse(savedData);
+        currentQuestion = parsedData.currentQuestion || 0;
+        correctAnswers = parsedData.correctAnswers || 0;
+      }
+      loadQuestion();
+
+      setTimeout(() => {
+        loader.style.display = "none";
+        content.style.display = "block";
+      }, 1000);
+    });
 
   function loadQuestion() {
+    updateProgress();
+
     if (currentQuestion >= questions.length) {
       submitButton.disabled = true;
       answerInput.disabled = true;
       finishButton.disabled = false;
       finishButton.classList.remove("disabled");
+      finishButton.textContent = "Level Completed!";
       return;
     }
 
     const question = questions[currentQuestion];
     questionImage.src = `images/${question.image}`;
-    questionText.textContent = `What is this?`;
+    questionText.textContent = "What is this?";
     answerInput.value = "";
+    answerInput.focus();
   }
 
-  submitButton.addEventListener("click", () => {
+  function updateProgress() {
+    progressText.textContent = `Progress: ${correctAnswers}/${totalQuestions}`;
+  }
+
+  function checkAnswer() {
     const userAnswer = answerInput.value.trim().toLowerCase();
-    const correctAnswer = questions[currentQuestion].answer;
+    const correctAnswer = questions[currentQuestion].answer.toLowerCase();
 
     if (userAnswer === correctAnswer) {
       correctAnswers++;
@@ -70,47 +73,20 @@ document.addEventListener("DOMContentLoaded", () => {
       level,
       JSON.stringify({ correctAnswers, currentQuestion })
     );
-    updateProgress();
     loadQuestion();
+  }
+
+  submitButton.addEventListener("click", checkAnswer);
+  answerInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") checkAnswer();
   });
 
   finishButton.addEventListener("click", () => {
+    localStorage.setItem("updateLevels", "true");
     location.href = "game.html";
   });
-  document.addEventListener("keyup", (event) => {
-    if (event.code === "Enter") {
-      const userAnswer = answerInput.value.trim().toLowerCase();
-      const correctAnswer = questions[currentQuestion].answer;
 
-      if (userAnswer === correctAnswer) {
-        correctAnswers++;
-      }
-
-      currentQuestion++;
-      localStorage.setItem(
-        level,
-        JSON.stringify({ correctAnswers, currentQuestion })
-      );
-      updateProgress();
-      loadQuestion();
-    }
+  back.addEventListener("click", () => {
+    location.href = "game.html";
   });
-  document.addEventListener("touchend", (event) => {
-    const userAnswer = answerInput.value.trim().toLowerCase();
-    const correctAnswer = questions[currentQuestion].answer;
-
-    if (userAnswer === correctAnswer) {
-      correctAnswers++;
-    }
-
-    currentQuestion++;
-    localStorage.setItem(
-      level,
-      JSON.stringify({ correctAnswers, currentQuestion })
-    );
-    updateProgress();
-    loadQuestion();
-  });
-
-  updateProgress();
 });
