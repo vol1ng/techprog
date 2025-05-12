@@ -33,7 +33,6 @@ button:hover {
   border-radius: 50px;
   margin-top: 180px;
 
-  /* background-color: white; */
   position: absolute;
   width: calc(100% - 70px);
   max-width: 300px;
@@ -64,7 +63,6 @@ img {
 
 .modeLabel {
   font-weight: bold;
-  /* color: black; */
 }
 .active_btn {
   margin: 2px;
@@ -120,7 +118,6 @@ img {
   justify-content: space-between;
   max-width: 400px;
   margin: 0 auto;
-  /* align-items: center; */
 }
 .active-header {
   display: flex;
@@ -160,5 +157,111 @@ input::placeholder {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 90%;
   max-width: 500px;
-  height: 350px;
+}
+
+.book {
+  height: 40px;
+  width: 40px;
+}
+.word-info {
+  margin-top: 20px;
+  text-align: left;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.phonetics {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  color: #666;
+}
+
+.audio-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 5px;
+  transition: transform 0.2s ease;
+}
+
+.audio-btn:hover {
+  transform: scale(1.1);
+}
+
+.audio-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.part-of-speech {
+  font-style: italic;
+  color: #888;
+  margin: 10px 0;
+}
+
+.definition {
+  margin: 15px 0;
+  line-height: 1.5;
+}
+
+.example {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-left: 3px solid #ccc;
+  font-style: italic;
+  border-radius: 0 8px 8px 0;
+}
+
+.error {
+  color: #e74c3c;
+  text-align: center;
+  padding: 20px;
+}
+
+#wordInput {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+}
+
+#wordInput:focus {
+  box-shadow: 0 0 0 2px rgba(0, 119, 255, 0.2);
+}
+
+#loader {
+  text-align: center;
+  padding: 40px;
+  font-style: italic;
+  color: #666;
+}
+#searchHistoryContainer {
+  margin-top: 20px;
+  text-align: left;
+}
+
+#searchHistoryList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#searchHistoryList li {
+  cursor: pointer;
+  padding: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+#searchHistoryList li:hover {
+  background-color: #f0f0f0;
 }
