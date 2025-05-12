@@ -163,6 +163,10 @@ input::placeholder {
   height: 40px;
   width: 40px;
 }
+#book{
+  height: 40px;
+  width: 40px;
+}
 .word-info {
   margin-top: 20px;
   text-align: left;
