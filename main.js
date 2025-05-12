@@ -1,7 +1,7 @@
 let currentFile = "words.json";
 
 const switchMode = () => {
-  currentFile = currentFile === "words.json" ? "Wordsru.json" : "words.json";
+  currentFile = currentFile === "words.json" ? "wordsru.json" : "words.json";
   const switchButton = document.getElementById("switchModeButton");
   switchButton.textContent = currentFile === "words.json" ? "Eng" : "Rus";
 
@@ -164,3 +164,8 @@ document.addEventListener("keyup", (event) => {
 });
 
 updateMarkedWords();
+
+const book = document.getElementById("book");
+book.addEventListener("click", () => {
+  window.location.href = "indexapi.html";
+});

@@ -10,12 +10,17 @@ document.addEventListener("DOMContentLoaded", () => {
   back.addEventListener("click", () => {
     location.href = "game.html";
   });
+  const level = location.pathname.replace(".html", "");
+  function anchor() {
+    fetch(`${level}.json`);
+    return;
+  }
+  anchor();
 
   let questions = [];
   let currentQuestion = 0;
   let correctAnswers = 0;
 
-  const level = location.pathname.replace(".html", "");
   fetch(`${level}.json`)
     .then((response) => response.json())
     .then((data) => {
@@ -26,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateProgress() {
     progressText.textContent = `Progress: ${correctAnswers}/${questions.length}`;
   }
+
   const loader = document.getElementById("loader");
   const content = document.getElementById("content");
 
@@ -34,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     loader.style.display = "none";
     content.style.display = "block";
-  }, 2000);
+  }, 3000);
 
   function loadQuestion() {
     if (currentQuestion >= questions.length) {
@@ -46,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const question = questions[currentQuestion];
-    questionImage.src = `imagesResized/${question.image}`;
+    questionImage.src = `images/${question.image}`;
     questionText.textContent = `What is this?`;
     answerInput.value = "";
   }
@@ -89,7 +95,22 @@ document.addEventListener("DOMContentLoaded", () => {
       loadQuestion();
     }
   });
+  document.addEventListener("touchend", (event) => {
+    const userAnswer = answerInput.value.trim().toLowerCase();
+    const correctAnswer = questions[currentQuestion].answer;
 
+    if (userAnswer === correctAnswer) {
+      correctAnswers++;
+    }
+
+    currentQuestion++;
+    localStorage.setItem(
+      level,
+      JSON.stringify({ correctAnswers, currentQuestion })
+    );
+    updateProgress();
+    loadQuestion();
+  });
 
   updateProgress();
 });

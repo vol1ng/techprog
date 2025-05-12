@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,10 +22,18 @@
           <div class="active-header">
             <button id="switchModeButton" class="active_btn">Eng</button>
             <span id="switchTheme"><img src="images/2.png" alt="" /></span>
+            <span id="book">
+              <img class="book" src="images/book.png" alt="" />
+            </span>
           </div>
         </header>
         <h1>Dictionary</h1>
-        <input type="text" id="wordInput" placeholder="Enter the word" />
+        <input
+          type="text"
+          id="wordInput"
+          placeholder="Enter the word"
+          autocomplete="off"
+        />
 
         <div class="parent">
           <div id="suggestionBox"></div>
