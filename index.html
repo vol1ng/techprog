@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Словарь</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link id="theme" rel="stylesheet" href="css/light.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+        .search-container {
+            position: relative;
+            display: inline-block;
+        }
+        .search-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            outline: none;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+        .search-button:hover {
+            background: none;
+            transform: translateY(-50%) scale(1.5);
+        }
+        .search-button:focus {
+            outline: none;
+        }
+        .search-button svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+        #wordInput {
+            padding-right: 40px;
+        }
+        .auth-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+        .auth-popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .auth-form input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #333;
+        }
+        .auth-form button {
+            padding: 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .auth-form button:hover {
+            background-color: #45a049;
+        }
+        .auth-links {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .auth-links a {
+            color: #4CAF50;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+        .close-popup {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #333;
+        }
+        .auth-popup-content h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .user-info {
+            display: none;
+            align-items: center;
+            gap: 15px;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+        .user-info span {
+            color: var(--text-color);
+            font-size: 14px;
+        }
+        .auth-icon {
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            border-radius: 50%;
+            padding: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .auth-icon:hover {
+            transform: scale(1.1);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .auth-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        #authButton {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+        #logoutButton {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+        }
+        .active_buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="loader" style="display: none">Загрузка...</div>
+      <div id="content" style="display: none">
+        <header class="header">
+          <button id="gameButton" class="active_btn">Играть</button>
+          <div class="active-header">
+            <span id="switchTheme"><img src="images/2.png" alt=""></span>
+          </div>
+        </header>
+        <h1>Словарь</h1>
+        <div class="search-container">
+          <input type="text" id="wordInput" placeholder="Введите слово">
+          <button class="search-button" onclick="searchWord()">
+            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
+              <path d="M22 20L20 22 14 16 14 14 16 14z"></path>
+              <path d="M9,16c-3.9,0-7-3.1-7-7c0-3.9,3.1-7,7-7c3.9,0,7,3.1,7,7C16,12.9,12.9,16,9,16z M9,4C6.2,4,4,6.2,4,9c0,2.8,2.2,5,5,5 c2.8,0,5-2.2,5-5C14,6.2,11.8,4,9,4z"></path>
+              <path d="M13.7 12.5H14.7V16H13.7z" transform="rotate(-44.992 14.25 14.25)"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="parent">
+          <div id="suggestionBox"></div>
+        </div>
+        <div class="active_buttons">
+          <button id="markButton" class="active_btn">Пометить слово</button>
+          <button id="viewMarkedWordsButton" class="active_btn">Помеченные слова</button>
+          <button id="authButton" class="auth-icon">
+            <img src="images/add_user.png" alt="Войти">
+          </button>
+          <div class="user-info">
+            <span id="userName"></span>
+            <button id="logoutButton" class="auth-icon">
+              <img src="images/exit_button.png" alt="Выйти">
+            </button>
+          </div>
+        </div>
+
+        <div id="markedWordsPopup" class="popup">
+          <div class="popup-content">
+            <h2>Помеченные слова:</h2>
+            <ul id="markedWordsList"></ul>
+            <button id="closePopupButton">Закрыть</button>
+          </div>
+        </div>
+
+        <div id="authPopup" class="auth-popup">
+          <div class="auth-popup-content">
+            <span class="close-popup" onclick="closeAuthPopup('authPopup')">&times;</span>
+            <h2>Вход</h2>
+            <form class="auth-form" id="authForm">
+              <input type="email" id="authEmail" placeholder="Email" required>
+              <input type="password" id="authPassword" placeholder="Пароль" required>
+              <button type="submit">Войти</button>
+            </form>
+            <div class="auth-links">
+              <a onclick="toggleAuthMode()">Нет аккаунта? Зарегистрироваться</a>
+            </div>
+          </div>
+        </div>
+
+        <div id="result"></div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="switchTheme.js"></script>
+    <script src="auth.js"></script>
+  </body>
+</html>
+

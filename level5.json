@@ -1,0 +1,12 @@
+[
+  { "image": "lighthouse.jpg", "answer": "lighthouse" },
+  { "image": "waterfall.jpg", "answer": "waterfall" },
+  { "image": "compass.jpg", "answer": "compass" },
+  { "image": "microscope.jpg", "answer": "microscope" },
+  { "image": "sculpture.jpg", "answer": "sculpture" },
+  { "image": "sunrise.jpg", "answer": "sunrise" },
+  { "image": "telescope.jpg", "answer": "telescope" },
+  { "image": "volcano.jpg", "answer": "volcano" },
+  { "image": "dolphin.jpg", "answer": "dolphin" },
+  { "image": "perfume.jpg", "answer": "perfume" }
+]
