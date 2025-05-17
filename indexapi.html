@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Словарь</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link id="theme" rel="stylesheet" href="css/light.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .main-layout {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        justify-content: center;
+        margin-top: 30px;
+        flex-wrap: wrap;
+      }
+
+      #searchHistoryContainer {
+        min-width: 180px;
+        max-width: 200px;
+        background-color: #fafafa;
+        padding: 15px 20px;
+        border-radius: 20px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        height: fit-content;
+      }
+
+      #searchHistoryContainer h3 {
+        margin-top: 0;
+      }
+
+      #searchHistoryList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      #searchHistoryList li {
+        cursor: pointer;
+        padding: 5px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      #searchHistoryList li:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-layout">
+      <div id="searchHistoryContainer">
+        <h3>Search History</h3>
+        <ul id="searchHistoryList"></ul>
+      </div>
+
+      <div class="container" id="content">
+        <div id="loader" style="display: none">Loading...</div>
+        <header class="header">
+          <span id="goBack"><img src="images/back.png" alt="" /></span>
+          <button id="gameButton" class="active_btn">Play the game</button>
+          <div class="active-header">
+            <span id="switchTheme"><img src="images/2.png" alt="" /></span>
+          </div>
+        </header>
+        <h1>Get the meaning of the word</h1>
+        <input
+          type="text"
+          id="wordInput"
+          autocomplete="off"
+          placeholder="Enter the word and press Enter"
+        />
+
+        <div id="result">
+          <div class="word-info">
+            <h2 id="searchedWord"></h2>
+            <div class="phonetics">
+              <span id="phoneticText"></span>
+              <button id="audioButton" class="audio-btn">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/727/727245.png"
+                  alt="Play"
+                  width="20"
+                />
+              </button>
+            </div>
+            <div class="part-of-speech" id="partOfSpeech"></div>
+            <div class="definition" id="definition"></div>
+            <div class="example" id="example"></div>
+          </div>
+        </div>
+        <div id="errorMessage" class="error" style="display: none"></div>
+      </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="switchTheme.js"></script>
+  </body>
+</html>
