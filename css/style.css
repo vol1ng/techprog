@@ -35,7 +35,7 @@ button:hover {
 }
 #suggestionBox {
   border-radius: 50px;
-  margin-top: 180px;
+  margin-top: 30px;
 
   position: absolute;
   width: calc(100% - 70px);
@@ -76,7 +76,7 @@ img {
   padding: 12px 25px;
   border: none;
   border-radius: 50px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -167,7 +167,7 @@ img {
 #closePopupButton {
   margin-top: 20px;
   padding: 12px 25px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 50px;
@@ -326,7 +326,7 @@ input::placeholder {
 }
 
 #wordInput:focus {
-  border-color: #4CAF50;
+  border-color: #4caf50;
   box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
@@ -359,58 +359,58 @@ input::placeholder {
 
 /* Стили для авторизации */
 .user-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 10px;
 }
 
 #userName {
-    font-weight: 500;
-    color: #333;
+  font-weight: 500;
+  color: #333;
 }
 
 #authPopup .popup-content {
-    max-width: 400px;
-    padding: 20px;
+  max-width: 400px;
+  padding: 20px;
 }
 
 #authForm {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 #authForm input {
-    padding: 8px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 #authForm button {
-    padding: 8px;
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 8px;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .auth-links {
-    margin: 10px 0;
-    text-align: center;
+  margin: 10px 0;
+  text-align: center;
 }
 
 .auth-links a {
-    color: var(--accent-color);
-    text-decoration: none;
+  color: var(--accent-color);
+  text-decoration: none;
 }
 
 .auth-links a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .auth-icon {
@@ -438,7 +438,7 @@ input::placeholder {
 }
 
 .auth-submit-btn {
-  background-color: #4CAF50 !important;
+  background-color: #4caf50 !important;
   color: white !important;
   padding: 10px 20px !important;
   border: none !important;
@@ -562,7 +562,7 @@ h1 {
 .resend-btn {
   background: none;
   border: none;
-  color: #4CAF50;
+  color: #4caf50;
   cursor: pointer;
   padding: 5px;
   font-size: 14px;
@@ -585,54 +585,54 @@ h1 {
 }
 
 #verificationCode:focus {
-  border-color: #4CAF50;
+  border-color: #4caf50;
   outline: none;
   box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
 }
 
 #sendCodeContainer {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 #sendCodeButton {
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  width: 100%;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 #sendCodeButton:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 #verificationCodeContainer {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 .verification-info {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #666;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
 }
 
 .verification-info p {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .resend-btn {
-    background: none;
-    border: none;
-    color: #4CAF50;
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 0;
-    font-size: 14px;
+  background: none;
+  border: none;
+  color: #4caf50;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 14px;
 }
 
 .resend-btn:hover {
-    color: #45a049;
+  color: #45a049;
 }

@@ -23,10 +23,20 @@
             <button id="switchModeButton" class="active_btn">Eng</button>
           </div>
           <div class="header-right">
-            <img id="authButton" src="images/add_user.png" alt="Войти" class="auth-icon">
+            <img
+              id="authButton"
+              src="images/add_user.png"
+              alt="Войти"
+              class="auth-icon"
+            />
             <div class="user-info" style="display: none">
               <span id="userName"></span>
-              <img id="logoutButton" src="images/exit_button.png" alt="Выйти" class="auth-icon">
+              <img
+                id="logoutButton"
+                src="images/exit_button.png"
+                alt="Выйти"
+                class="auth-icon"
+              />
             </div>
             <span id="switchTheme"><img src="images/2.png" alt="" /></span>
             <span>
@@ -44,9 +54,6 @@
               placeholder="Enter the word"
               autocomplete="off"
             />
-            <div class="parent">
-              <div id="suggestionBox"></div>
-            </div>
           </div>
 
           <div id="result"></div>
@@ -65,29 +72,61 @@
             <button id="closePopupButton">Close</button>
           </div>
         </div>
+        <div class="parent">
+          <div id="suggestionBox"></div>
+        </div>
 
         <!-- Попап авторизации -->
         <div id="authPopup" class="popup">
           <div class="popup-content auth-popup">
             <h2>Вход</h2>
             <form id="authForm">
-              <input type="email" id="authEmail" placeholder="Email" required autocomplete="email" />
-              <div id="sendCodeContainer" style="display: none;">
-                <button type="button" id="sendCodeButton" class="auth-submit-btn">Отправить код</button>
+              <input
+                type="email"
+                id="authEmail"
+                placeholder="Email"
+                required
+                autocomplete="email"
+              />
+              <div id="sendCodeContainer" style="display: none">
+                <button
+                  type="button"
+                  id="sendCodeButton"
+                  class="auth-submit-btn"
+                >
+                  Отправить код
+                </button>
               </div>
-              <div id="verificationCodeContainer" style="display: none;">
-                <input type="text" id="verificationCode" placeholder="Код подтверждения (6 цифр)" maxlength="6" pattern="[0-9]{6}" autocomplete="one-time-code" />
+              <div id="verificationCodeContainer" style="display: none">
+                <input
+                  type="text"
+                  id="verificationCode"
+                  placeholder="Код подтверждения (6 цифр)"
+                  maxlength="6"
+                  pattern="[0-9]{6}"
+                  autocomplete="one-time-code"
+                />
                 <div class="verification-info">
                   <p>Код отправлен на вашу почту</p>
                 </div>
               </div>
-              <input type="password" id="authPassword" placeholder="Пароль" required autocomplete="current-password" />
+              <input
+                type="password"
+                id="authPassword"
+                placeholder="Пароль"
+                required
+                autocomplete="current-password"
+              />
               <button type="submit" class="auth-submit-btn">Войти</button>
             </form>
             <div class="auth-links">
-              <a href="#" onclick="toggleAuthMode(); return false;">Нет аккаунта? Зарегистрироваться</a>
+              <a href="#" onclick="toggleAuthMode(); return false;"
+                >Нет аккаунта? Зарегистрироваться</a
+              >
             </div>
-            <button onclick="closeAuthPopup()" class="close-auth-btn">Закрыть</button>
+            <button onclick="closeAuthPopup()" class="close-auth-btn">
+              Закрыть
+            </button>
           </div>
         </div>
       </div>
