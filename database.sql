@@ -1,62 +1,61 @@
--- Создание таблицы пользователей
+-- Создаем пользователя для приложения
+CREATE USER dictionary_app_main WITH PASSWORD '1458';
+
+-- Создаем базу данных
+CREATE DATABASE dictionary_db;
+
+-- Подключаемся к созданной базе данных
+\c dictionary_db;
+
+-- Предоставляем права пользователю на базу данных
+GRANT ALL PRIVILEGES ON DATABASE dictionary_db TO dictionary_app_main;
+
+-- Создаем схему public если её нет
+CREATE SCHEMA IF NOT EXISTS public;
+
+-- Предоставляем права на схему
+GRANT ALL ON SCHEMA public TO dictionary_app_main;
+
+-- Удаляем существующие таблицы, если они есть
+DROP TABLE IF EXISTS marked_words;
+DROP TABLE IF EXISTS game_progress;
+DROP TABLE IF EXISTS users;
+
+-- Создаем таблицу пользователей
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    username VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    last_login TIMESTAMP WITH TIME ZONE,
-    is_active BOOLEAN DEFAULT TRUE
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_login TIMESTAMP
 );
 
--- Создание таблицы для помеченных слов пользователя
+-- Создаем таблицу для отмеченных слов
 CREATE TABLE marked_words (
-    mark_id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
-    word VARCHAR(255) NOT NULL,
+    word VARCHAR(100) NOT NULL,
     translation TEXT,
-    language VARCHAR(10) NOT NULL, -- 'en' или 'ru'
-    marked_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(user_id, word, language)
+    marked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, word)
 );
 
--- Создание таблицы для истории поиска
-CREATE TABLE search_history (
-    search_id SERIAL PRIMARY KEY,
+-- Создаем таблицу для прогресса игры
+CREATE TABLE game_progress (
+    id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
-    word VARCHAR(255) NOT NULL,
-    language VARCHAR(10) NOT NULL, -- 'en' или 'ru'
-    searched_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    level INTEGER NOT NULL,
+    score INTEGER DEFAULT 0,
+    completed BOOLEAN DEFAULT FALSE,
+    last_played TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id, level)
 );
 
--- Создание индексов для оптимизации поиска
-CREATE INDEX idx_users_email ON users(email);
+-- Создаем индексы для оптимизации запросов
 CREATE INDEX idx_marked_words_user_id ON marked_words(user_id);
-CREATE INDEX idx_search_history_user_id ON search_history(user_id);
+CREATE INDEX idx_game_progress_user_id ON game_progress(user_id);
 
--- Создание представления для статистики пользователя
-CREATE VIEW user_statistics AS
-SELECT 
-    u.user_id,
-    u.username,
-    u.email,
-    COUNT(DISTINCT mw.mark_id) as total_marked_words,
-    COUNT(DISTINCT sh.search_id) as total_searches,
-    MAX(sh.searched_at) as last_search_date
-FROM users u
-LEFT JOIN marked_words mw ON u.user_id = mw.user_id
-LEFT JOIN search_history sh ON u.user_id = sh.user_id
-GROUP BY u.user_id, u.username, u.email;
-
--- Добавление комментариев к таблицам
-COMMENT ON TABLE users IS 'Таблица пользователей системы';
-COMMENT ON TABLE marked_words IS 'Таблица помеченных слов пользователей';
-COMMENT ON TABLE search_history IS 'История поиска пользователей';
-COMMENT ON VIEW user_statistics IS 'Статистика использования системы пользователями';
-
--- Создание роли для приложения
-CREATE ROLE dictionary_app WITH LOGIN PASSWORD 'your_secure_password';
-
--- Предоставление прав на таблицы
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO dictionary_app;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO dictionary_app;
+-- Предоставляем права на все таблицы
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO dictionary_app_main;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO dictionary_app_main;

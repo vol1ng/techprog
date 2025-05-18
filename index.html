@@ -71,17 +71,17 @@
           <div class="popup-content auth-popup">
             <h2>Вход</h2>
             <form id="authForm">
-              <input type="email" id="authEmail" placeholder="Email" required />
+              <input type="email" id="authEmail" placeholder="Email" required autocomplete="email" />
               <div id="sendCodeContainer" style="display: none;">
                 <button type="button" id="sendCodeButton" class="auth-submit-btn">Отправить код</button>
               </div>
-              <input type="password" id="authPassword" placeholder="Пароль" required />
               <div id="verificationCodeContainer" style="display: none;">
-                <input type="text" id="verificationCode" placeholder="Код подтверждения (6 цифр)" maxlength="6" pattern="[0-9]{6}" />
+                <input type="text" id="verificationCode" placeholder="Код подтверждения (6 цифр)" maxlength="6" pattern="[0-9]{6}" autocomplete="one-time-code" />
                 <div class="verification-info">
                   <p>Код отправлен на вашу почту</p>
                 </div>
               </div>
+              <input type="password" id="authPassword" placeholder="Пароль" required autocomplete="current-password" />
               <button type="submit" class="auth-submit-btn">Войти</button>
             </form>
             <div class="auth-links">

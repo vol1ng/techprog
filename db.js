@@ -2,10 +2,10 @@ const { Pool } = require('pg');
 
 // Конфигурация подключения к базе данных
 const pool = new Pool({
-    user: 'dictionary_app',
+    user: 'dictionary_app_main',
     host: 'localhost',
-    database: 'tp_project',
-    password: 'your_secure_password',
+    database: 'dictionary_db',
+    password: '1458',
     port: 5432,
 });
 
@@ -20,121 +20,108 @@ async function testConnection() {
     }
 }
 
-// Функции для работы с пользователями
+// Запросы для работы с пользователями
 const userQueries = {
-    // Регистрация нового пользователя
-    async registerUser(email, passwordHash, username) {
-        try {
-            const result = await pool.query(
-                'INSERT INTO users (email, password_hash, username) VALUES ($1, $2, $3) RETURNING user_id',
-                [email, passwordHash, username]
-            );
-            return result.rows[0];
-        } catch (err) {
-            console.error('Ошибка при регистрации пользователя:', err);
-            throw err;
-        }
+    findUserByEmail: async (email) => {
+        const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+        return result.rows[0];
     },
 
-    // Поиск пользователя по email
-    async findUserByEmail(email) {
-        try {
-            const result = await pool.query(
-                'SELECT * FROM users WHERE email = $1',
-                [email]
-            );
-            return result.rows[0];
-        } catch (err) {
-            console.error('Ошибка при поиске пользователя:', err);
-            throw err;
-        }
+    registerUser: async (email, passwordHash, username) => {
+        const result = await pool.query(
+            'INSERT INTO users (email, password_hash, username) VALUES ($1, $2, $3) RETURNING *',
+            [email, passwordHash, username]
+        );
+        return result.rows[0];
     },
 
-    // Обновление времени последнего входа
-    async updateLastLogin(userId) {
-        try {
-            await pool.query(
-                'UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE user_id = $1',
-                [userId]
-            );
-        } catch (err) {
-            console.error('Ошибка при обновлении времени входа:', err);
-            throw err;
-        }
+    updateLastLogin: async (userId) => {
+        await pool.query('UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE user_id = $1', [userId]);
     }
 };
 
-// Функции для работы с помеченными словами
+// Запросы для работы с отмеченными словами
 const markedWordsQueries = {
-    // Добавление помеченного слова
-    async addMarkedWord(userId, word, translation, language) {
-        try {
-            const result = await pool.query(
-                'INSERT INTO marked_words (user_id, word, translation, language) VALUES ($1, $2, $3, $4) RETURNING mark_id',
-                [userId, word, translation, language]
-            );
-            return result.rows[0];
-        } catch (err) {
-            console.error('Ошибка при добавлении помеченного слова:', err);
-            throw err;
-        }
+    addMarkedWord: async (userId, word) => {
+        const query = `
+            INSERT INTO marked_words (user_id, word)
+            VALUES ($1, $2)
+            RETURNING *
+        `;
+        const result = await pool.query(query, [userId, word]);
+        return result.rows[0];
     },
 
-    // Получение всех помеченных слов пользователя
-    async getMarkedWords(userId) {
+    removeMarkedWord: async (userId, word) => {
+        const query = `
+            DELETE FROM marked_words
+            WHERE user_id = $1 AND word = $2
+            RETURNING *
+        `;
+        const result = await pool.query(query, [userId, word]);
+        return result.rows[0];
+    },
+
+    getMarkedWords: async (userId) => {
+        console.log('=== Начало получения отмеченных слов из БД ===');
+        console.log('ID пользователя:', userId);
         try {
-            const result = await pool.query(
-                'SELECT * FROM marked_words WHERE user_id = $1 ORDER BY marked_at DESC',
-                [userId]
-            );
+            const query = `
+                SELECT word
+                FROM marked_words
+                WHERE user_id = $1
+                ORDER BY marked_at DESC
+            `;
+            console.log('Выполняем SQL запрос:', query);
+            const result = await pool.query(query, [userId]);
+            console.log('Результат запроса:', result.rows);
+            console.log('=== Получение отмеченных слов завершено успешно ===');
             return result.rows;
-        } catch (err) {
-            console.error('Ошибка при получении помеченных слов:', err);
-            throw err;
+        } catch (error) {
+            console.error('Ошибка при получении отмеченных слов из БД:', error);
+            throw error;
         }
     },
 
-    // Удаление помеченного слова
-    async removeMarkedWord(userId, word, language) {
-        try {
-            await pool.query(
-                'DELETE FROM marked_words WHERE user_id = $1 AND word = $2 AND language = $3',
-                [userId, word, language]
-            );
-        } catch (err) {
-            console.error('Ошибка при удалении помеченного слова:', err);
-            throw err;
-        }
+    findMarkedWord: async (userId, word) => {
+        const query = `
+            SELECT *
+            FROM marked_words
+            WHERE user_id = $1 AND word = $2
+        `;
+        const result = await pool.query(query, [userId, word]);
+        return result.rows[0];
     }
 };
 
-// Функции для работы с историей поиска
-const searchHistoryQueries = {
-    // Добавление записи в историю поиска
-    async addSearchHistory(userId, word, language) {
-        try {
-            await pool.query(
-                'INSERT INTO search_history (user_id, word, language) VALUES ($1, $2, $3)',
-                [userId, word, language]
-            );
-        } catch (err) {
-            console.error('Ошибка при добавлении в историю поиска:', err);
-            throw err;
-        }
+// Запросы для работы с прогрессом игры
+const gameProgressQueries = {
+    saveProgress: async (userId, level, score, completed) => {
+        const result = await pool.query(
+            `INSERT INTO game_progress (user_id, level, score, completed) 
+             VALUES ($1, $2, $3, $4)
+             ON CONFLICT (user_id, level) 
+             DO UPDATE SET score = $3, completed = $4, last_played = CURRENT_TIMESTAMP
+             RETURNING *`,
+            [userId, level, score, completed]
+        );
+        return result.rows[0];
     },
 
-    // Получение истории поиска пользователя
-    async getSearchHistory(userId, limit = 10) {
-        try {
-            const result = await pool.query(
-                'SELECT * FROM search_history WHERE user_id = $1 ORDER BY searched_at DESC LIMIT $2',
-                [userId, limit]
-            );
-            return result.rows;
-        } catch (err) {
-            console.error('Ошибка при получении истории поиска:', err);
-            throw err;
-        }
+    getProgress: async (userId) => {
+        const result = await pool.query(
+            'SELECT * FROM game_progress WHERE user_id = $1 ORDER BY level',
+            [userId]
+        );
+        return result.rows;
+    },
+
+    getLevelProgress: async (userId, level) => {
+        const result = await pool.query(
+            'SELECT * FROM game_progress WHERE user_id = $1 AND level = $2',
+            [userId, level]
+        );
+        return result.rows[0];
     }
 };
 
@@ -143,6 +130,6 @@ module.exports = {
     testConnection,
     userQueries,
     markedWordsQueries,
-    searchHistoryQueries,
+    gameProgressQueries,
     pool
 }; 
