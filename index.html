@@ -72,7 +72,16 @@
             <h2>Вход</h2>
             <form id="authForm">
               <input type="email" id="authEmail" placeholder="Email" required />
+              <div id="sendCodeContainer" style="display: none;">
+                <button type="button" id="sendCodeButton" class="auth-submit-btn">Отправить код</button>
+              </div>
               <input type="password" id="authPassword" placeholder="Пароль" required />
+              <div id="verificationCodeContainer" style="display: none;">
+                <input type="text" id="verificationCode" placeholder="Код подтверждения (6 цифр)" maxlength="6" pattern="[0-9]{6}" />
+                <div class="verification-info">
+                  <p>Код отправлен на вашу почту</p>
+                </div>
+              </div>
               <button type="submit" class="auth-submit-btn">Войти</button>
             </form>
             <div class="auth-links">

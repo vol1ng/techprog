@@ -13,6 +13,69 @@ function closeMarkedWordsPopup() {
 }
 
 let isLoginMode = true;
+let verificationCode = null;
+
+// Функция для генерации кода подтверждения
+function generateVerificationCode() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+// Функция для отправки кода на email
+async function sendVerificationCode(email) {
+  try {
+    const code = generateVerificationCode();
+    verificationCode = code;
+
+    const response = await fetch('http://localhost:3000/api/send-verification', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, code })
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      document.getElementById('verificationCodeContainer').style.display = 'block';
+      return true;
+    } else {
+      alert('Ошибка при отправке кода: ' + data.message);
+      return false;
+    }
+  } catch (error) {
+    console.error('Ошибка при отправке кода:', error);
+    alert('Ошибка при отправке кода подтверждения');
+    return false;
+  }
+}
+
+// Обработчик изменения email
+document.getElementById('authEmail').addEventListener('input', function() {
+    const email = this.value;
+    const sendCodeContainer = document.getElementById('sendCodeContainer');
+    const verificationContainer = document.getElementById('verificationCodeContainer');
+    
+    if (email && !isLoginMode) {
+        sendCodeContainer.style.display = 'block';
+        verificationContainer.style.display = 'none';
+    } else {
+        sendCodeContainer.style.display = 'none';
+        verificationContainer.style.display = 'none';
+    }
+});
+
+// Обработчик кнопки отправки кода
+document.getElementById('sendCodeButton').addEventListener('click', async function() {
+    const email = document.getElementById('authEmail').value;
+    if (email) {
+        const success = await sendVerificationCode(email);
+        if (success) {
+            document.getElementById('sendCodeContainer').style.display = 'none';
+        }
+    } else {
+        alert('Пожалуйста, введите email');
+    }
+});
 
 function toggleAuthMode() {
     isLoginMode = !isLoginMode;
@@ -20,17 +83,23 @@ function toggleAuthMode() {
     const title = form.parentElement.querySelector('h2');
     const submitButton = form.querySelector('button[type="submit"]');
     const toggleLink = form.parentElement.querySelector('.auth-links a');
+    const verificationContainer = document.getElementById('verificationCodeContainer');
+    const sendCodeContainer = document.getElementById('sendCodeContainer');
     const nameInput = document.getElementById('authName');
 
     if (isLoginMode) {
         title.textContent = 'Вход';
         submitButton.textContent = 'Войти';
         toggleLink.textContent = 'Нет аккаунта? Зарегистрироваться';
+        verificationContainer.style.display = 'none';
+        sendCodeContainer.style.display = 'none';
         if (nameInput) nameInput.remove();
     } else {
         title.textContent = 'Регистрация';
         submitButton.textContent = 'Зарегистрироваться';
         toggleLink.textContent = 'Уже есть аккаунт? Войти';
+        verificationContainer.style.display = 'none';
+        sendCodeContainer.style.display = 'none';
         if (!nameInput) {
             const emailInput = document.getElementById('authEmail');
             const nameInput = document.createElement('input');
@@ -53,12 +122,23 @@ document.getElementById('logoutButton').addEventListener('click', () => {
     logout();
 });
 
-// Обработка формы
+// Обработчик для повторной отправки кода
+document.getElementById('resendCode').addEventListener('click', async () => {
+  const email = document.getElementById('authEmail').value;
+  if (email) {
+    await sendVerificationCode(email);
+  } else {
+    alert('Пожалуйста, введите email');
+  }
+});
+
+// Обновляем обработчик формы
 document.getElementById('authForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const email = document.getElementById('authEmail').value;
     const password = document.getElementById('authPassword').value;
+    const code = document.getElementById('verificationCode').value;
 
     try {
         if (isLoginMode) {
@@ -73,8 +153,14 @@ document.getElementById('authForm').addEventListener('submit', async (e) => {
                 alert('Ошибка авторизации: ' + response.message);
             }
         } else {
+            // Проверка кода подтверждения
+            if (code !== verificationCode) {
+                alert('Неверный код подтверждения');
+                return;
+            }
+
             // Логика регистрации
-            const name = document.getElementById('authName').value;
+            const name = document.getElementById('authName')?.value;
             const response = await registerUser(name, email, password);
             if (response.success) {
                 alert('Регистрация успешна! Теперь вы можете войти.');

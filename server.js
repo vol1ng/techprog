@@ -3,9 +3,11 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const path = require('path');
 const { testConnection, userQueries } = require('./db');
+const { Resend } = require('resend');
 
 const app = express();
 const port = process.env.PORT || 3000;
+const resend = new Resend('re_4wyPLDjE_EYcvu4pkZsTSWW8KPi5nZBft');
 
 // Middleware
 app.use(cors());
@@ -83,6 +85,36 @@ app.post('/api/login', async (req, res) => {
         console.error('Ошибка при авторизации:', error);
         res.status(500).json({ success: false, message: 'Ошибка сервера при авторизации' });
     }
+});
+
+// Endpoint для отправки кода подтверждения
+app.post('/api/send-verification', async (req, res) => {
+  const { email, code } = req.body;
+
+  try {
+    const data = await resend.emails.send({
+      from: 'Dictionary App <onboarding@resend.dev>',
+      to: [email],
+      subject: 'Код подтверждения регистрации',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2>Подтверждение регистрации</h2>
+          <p>Ваш код подтверждения: <strong>${code}</strong></p>
+          <p>Введите этот код в форму регистрации для подтверждения вашего email.</p>
+        </div>
+      `
+    });
+
+    console.log('Email sent successfully:', data);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Ошибка при отправке email:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Ошибка при отправке кода подтверждения',
+      error: error.message 
+    });
+  }
 });
 
 // Тестовый маршрут

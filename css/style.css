@@ -548,3 +548,91 @@ h1 {
   justify-content: center;
   gap: 20px;
 }
+
+.verification-info {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.verification-info p {
+  margin-bottom: 10px;
+}
+
+.resend-btn {
+  background: none;
+  border: none;
+  color: #4CAF50;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.resend-btn:hover {
+  color: #45a049;
+}
+
+#verificationCode {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 18px;
+}
+
+#verificationCode:focus {
+  border-color: #4CAF50;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+
+#sendCodeContainer {
+    margin: 10px 0;
+}
+
+#sendCodeButton {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#sendCodeButton:hover {
+    background-color: #45a049;
+}
+
+#verificationCodeContainer {
+    margin: 10px 0;
+}
+
+.verification-info {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.verification-info p {
+    margin-bottom: 5px;
+}
+
+.resend-btn {
+    background: none;
+    border: none;
+    color: #4CAF50;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    font-size: 14px;
+}
+
+.resend-btn:hover {
+    color: #45a049;
+}
