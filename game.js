@@ -69,13 +69,22 @@ resetButton.addEventListener("click", () => {
 
     // Обновляем кнопки уровней
     levelButtons.forEach((button) => {
+      const levels = {
+        1: "Beginner",
+        2: "Elementary",
+        3: "Pre-Intermediate",
+        4: "Intermediate",
+        5: "Upper-Intermediate",
+        6: "Advanced",
+        7: "Bonus",
+      };
       const level = button.getAttribute("data-level");
-      button.textContent = `Level ${level}: Beginner`; // Или ваше стандартное название
+      const name = levels[level];
+      button.textContent = `Level ${level}: ${name}`;
       button.classList.remove("completed");
       button.disabled = false;
     });
 
-    // Можно добавить анимацию или уведомление
     alert("All progress has been reset!");
   }
 });
