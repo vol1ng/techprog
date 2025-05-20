@@ -2,11 +2,11 @@
   { "image": "mountain.jpg", "answer": "mountain" },
   { "image": "rainbow.jpg", "answer": "rainbow" },
   { "image": "garden.jpg", "answer": "garden" },
-  { "image": "bedroom.jpg", " answer": "bedroom" },
+  { "image": "bedroom.jpg", "answer": "bedroom" },
   { "image": "farmer.jpg", "answer": "farmer" },
-  { "image": "street.jpg", " answer": "street" },
-  { "image": "candle.jpg", " answer": "candle" },
-  { "image": "picture.jpg", " answer": "picture" },
+  { "image": "street.jpg", "answer": "street" },
+  { "image": "candle.jpg", "answer": "candle" },
+  { "image": "picture.jpg", "answer": "picture" },
   { "image": "guitar.jpg", "answer": "guitar" },
-  { "image": "orange.jpg", " answer": "orange" }
+  { "image": "orange.jpg", "answer": "orange" }
 ]
